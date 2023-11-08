@@ -1,0 +1,24 @@
+{
+  "name": "asset-bee-plus",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "RUNNING_ENV=local node ./lib/main.js",
+    "build": "./node_modules/.bin/babel src --out-dir lib --source-maps inline --copy-files"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.441.0",
+    "@aws-sdk/lib-dynamodb": "^3.445.0",
+    "@babel/cli": "^7.21.5",
+    "@babel/core": "^7.21.5",
+    "@babel/preset-env": "^7.21.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "qrcode": "^1.5.3",
+    "uuid": "^9.0.1"
+  }
+}
