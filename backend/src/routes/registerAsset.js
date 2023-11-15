@@ -1,27 +1,22 @@
-import QRCode from 'qrcode'
-import { WrappedConsole } from '../utils/wrappedConsole.js'
+import { WrappedConsole } from '../utils/index.js'
 import { v4 as uuidv4 } from 'uuid';
-import { dbPut } from '../cloudFunctions/dbPut.js';
+import { dbPut } from '../cloudFunctions/index.js';
+import { uploadQrCode } from '../uploadQrCode/index.js';
 
-export const registerAsset = async(req, res) => {
-    const wrappedConsole = new WrappedConsole("POST")
-    let asset = JSON.parse(JSON.stringify(req.body))
-    const internalId = uuidv4()+ "" + asset.serialNo;
-    const url = process.env.DOMAIN + "/device?id=" +internalId
-    const creationDate = Date.now() + ""
-    let qrCode
-    try {
-      qrCode = await QRCode.toDataURL(url)
-    } catch (error) {
-      wrappedConsole.error("Error while generating qr code", error)
-      res.send(false)
-    }
-    asset = {...asset, internalId, url, qrCode, creationDate}
-    try {
-      qrCode = await dbPut(asset)
-    } catch (error) {
-      wrappedConsole.error("Error while uploading data to dynamoDB ", error)
-      res.send(false)
-    }
+export const registerAsset = async (req, res) => {
+  const wrappedConsole = new WrappedConsole("POST", "/registerAsset")
+  let asset = JSON.parse(JSON.stringify(req.body))
+  const internalId = uuidv4() + "" + asset.serialNo;
+  const creationDate = Date.now() + ""
+  const url = process.env.DOMAIN + "/device?id=" + internalId + "&creationDate=" + creationDate
+  asset = { ...asset, internalId, url, creationDate }
+  let qrCode = await uploadQrCode(asset, wrappedConsole)
+  // let dbUpdate = await dbPut(asset, wrappedConsole)
+  if (!qrCode ) {
+    res.send(false)
+  }
+  else {
     res.send("Asset registered successfully")
   }
+
+}

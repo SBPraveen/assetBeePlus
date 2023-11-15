@@ -1,15 +1,16 @@
 import express from 'express'
-const app = express()
-const port = 3000
-import {registerAsset, listAssets, assetInfo} from "./routes/index.js"
-import 'dotenv/config'
+import config from '../config.js'
+import {registerAsset, assetInfo, listAssets, downloadQrCode} from "./routes/index.js"
 
+const app = express()
 app.use(express.json());
 
+//routes
 app.post('/registerAsset', registerAsset)
-app.get('/listAssets', listAssets)
 app.get('/asset', assetInfo)
+app.get('/listAssets', listAssets)
+app.get('/downloadQrCode', downloadQrCode)
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+app.listen(config.port, () => {
+  console.log(`Example app listening on port ${config.port}`)
 })

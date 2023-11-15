@@ -1,0 +1,1 @@
+export { WrappedConsole } from './wrappedConsole.js'

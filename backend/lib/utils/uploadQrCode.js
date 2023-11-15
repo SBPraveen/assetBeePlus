@@ -1,0 +1,30 @@
+import QRCode from 'qrcode';
+import { s3Upload } from '../cloudFunctions/index.js';
+import fs from 'fs';
+
+//This function generates QR code and uploads it to S3 bucket
+export const uploadQrCode = async (asset, wrappedConsole) => {
+  try {
+    //the QR code is generated as a base-64 url
+    const qrCode = await QRCode.toDataURL(asset.url);
+    console.log("qrCode", qrCode);
+    //converting the base-64 to streams
+    // qrCode = Buffer.from(qrCode, "base64")
+    const qrStream = await fetch(qrCode);
+    console.log("qrStream", qrStream);
+    let writableStream = fs.createWriteStream('./write.png');
+    writableStream.write(qrStream.body);
+    // const qrBlob = await qrStream.blob()
+    // console.log("qrBlob", qrBlob);
+    // //Upload the qrcode to s3 bucket
+    // let isS3Upload = s3Upload(qrBlob, asset.internalId+'.png', wrappedConsole)
+    // if (!isS3Upload) {
+    //     return false
+    // }
+  } catch (error) {
+    wrappedConsole.error("Error while generating qr code", error);
+    return false;
+  }
+  return true;
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJRUkNvZGUiLCJzM1VwbG9hZCIsImZzIiwidXBsb2FkUXJDb2RlIiwiYXNzZXQiLCJ3cmFwcGVkQ29uc29sZSIsInFyQ29kZSIsInRvRGF0YVVSTCIsInVybCIsImNvbnNvbGUiLCJsb2ciLCJxclN0cmVhbSIsImZldGNoIiwid3JpdGFibGVTdHJlYW0iLCJjcmVhdGVXcml0ZVN0cmVhbSIsIndyaXRlIiwiYm9keSIsImVycm9yIl0sInNvdXJjZXMiOlsiLi4vLi4vc3JjL3V0aWxzL3VwbG9hZFFyQ29kZS5qcyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUVJDb2RlIGZyb20gJ3FyY29kZSdcbmltcG9ydCB7IHMzVXBsb2FkIH0gZnJvbSAnLi4vY2xvdWRGdW5jdGlvbnMvaW5kZXguanMnXG5pbXBvcnQgZnMgZnJvbSAnZnMnXG5cbi8vVGhpcyBmdW5jdGlvbiBnZW5lcmF0ZXMgUVIgY29kZSBhbmQgdXBsb2FkcyBpdCB0byBTMyBidWNrZXRcbmV4cG9ydCBjb25zdCB1cGxvYWRRckNvZGUgPSBhc3luYyAoYXNzZXQsIHdyYXBwZWRDb25zb2xlKSA9PiB7XG4gICAgdHJ5IHtcbiAgICAgICAgLy90aGUgUVIgY29kZSBpcyBnZW5lcmF0ZWQgYXMgYSBiYXNlLTY0IHVybFxuICAgICAgICBjb25zdCBxckNvZGUgPSBhd2FpdCBRUkNvZGUudG9EYXRhVVJMKGFzc2V0LnVybClcbiAgICAgICAgY29uc29sZS5sb2coXCJxckNvZGVcIiwgcXJDb2RlKTtcbiAgICAgICAgLy9jb252ZXJ0aW5nIHRoZSBiYXNlLTY0IHRvIHN0cmVhbXNcbiAgICAgICAgLy8gcXJDb2RlID0gQnVmZmVyLmZyb20ocXJDb2RlLCBcImJhc2U2NFwiKVxuICAgICAgICBjb25zdCBxclN0cmVhbSA9IGF3YWl0IGZldGNoKHFyQ29kZSlcbiAgICAgICAgY29uc29sZS5sb2coXCJxclN0cmVhbVwiLCBxclN0cmVhbSk7XG4gICAgICAgIGxldCB3cml0YWJsZVN0cmVhbSA9IGZzLmNyZWF0ZVdyaXRlU3RyZWFtKCcuL3dyaXRlLnBuZycpO1xuICAgICAgICB3cml0YWJsZVN0cmVhbS53cml0ZShxclN0cmVhbS5ib2R5KVxuICAgICAgICAvLyBjb25zdCBxckJsb2IgPSBhd2FpdCBxclN0cmVhbS5ibG9iKClcbiAgICAgICAgLy8gY29uc29sZS5sb2coXCJxckJsb2JcIiwgcXJCbG9iKTtcbiAgICAgICAgLy8gLy9VcGxvYWQgdGhlIHFyY29kZSB0byBzMyBidWNrZXRcbiAgICAgICAgLy8gbGV0IGlzUzNVcGxvYWQgPSBzM1VwbG9hZChxckJsb2IsIGFzc2V0LmludGVybmFsSWQrJy5wbmcnLCB3cmFwcGVkQ29uc29sZSlcbiAgICAgICAgLy8gaWYgKCFpc1MzVXBsb2FkKSB7XG4gICAgICAgIC8vICAgICByZXR1cm4gZmFsc2VcbiAgICAgICAgLy8gfVxuICAgIH0gY2F0Y2ggKGVycm9yKSB7XG4gICAgICAgIHdyYXBwZWRDb25zb2xlLmVycm9yKFwiRXJyb3Igd2hpbGUgZ2VuZXJhdGluZyBxciBjb2RlXCIsIGVycm9yKVxuICAgICAgICByZXR1cm4gZmFsc2VcbiAgICB9XG4gICAgcmV0dXJuIHRydWVcbn0iXSwibWFwcGluZ3MiOiJBQUFBLE9BQU9BLE1BQU0sTUFBTSxRQUFRO0FBQzNCLFNBQVNDLFFBQVEsUUFBUSw0QkFBNEI7QUFDckQsT0FBT0MsRUFBRSxNQUFNLElBQUk7O0FBRW5CO0FBQ0EsT0FBTyxNQUFNQyxZQUFZLEdBQUcsTUFBQUEsQ0FBT0MsS0FBSyxFQUFFQyxjQUFjLEtBQUs7RUFDekQsSUFBSTtJQUNBO0lBQ0EsTUFBTUMsTUFBTSxHQUFHLE1BQU1OLE1BQU0sQ0FBQ08sU0FBUyxDQUFDSCxLQUFLLENBQUNJLEdBQUcsQ0FBQztJQUNoREMsT0FBTyxDQUFDQyxHQUFHLENBQUMsUUFBUSxFQUFFSixNQUFNLENBQUM7SUFDN0I7SUFDQTtJQUNBLE1BQU1LLFFBQVEsR0FBRyxNQUFNQyxLQUFLLENBQUNOLE1BQU0sQ0FBQztJQUNwQ0csT0FBTyxDQUFDQyxHQUFHLENBQUMsVUFBVSxFQUFFQyxRQUFRLENBQUM7SUFDakMsSUFBSUUsY0FBYyxHQUFHWCxFQUFFLENBQUNZLGlCQUFpQixDQUFDLGFBQWEsQ0FBQztJQUN4REQsY0FBYyxDQUFDRSxLQUFLLENBQUNKLFFBQVEsQ0FBQ0ssSUFBSSxDQUFDO0lBQ25DO0lBQ0E7SUFDQTtJQUNBO0lBQ0E7SUFDQTtJQUNBO0VBQ0osQ0FBQyxDQUFDLE9BQU9DLEtBQUssRUFBRTtJQUNaWixjQUFjLENBQUNZLEtBQUssQ0FBQyxnQ0FBZ0MsRUFBRUEsS0FBSyxDQUFDO0lBQzdELE9BQU8sS0FBSztFQUNoQjtFQUNBLE9BQU8sSUFBSTtBQUNmLENBQUMifQ==
