@@ -5,8 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "RUNNING_ENV=local node ./lib/main.js",
-    "build": "./node_modules/.bin/babel src --out-dir lib --source-maps inline --copy-files"
+    "start": "RUNNING_ENV=local node ./build/main.js",
+    "build": "./node_modules/.bin/babel src --out-dir build --source-maps inline --copy-files"
   },
   "author": "",
   "license": "ISC",

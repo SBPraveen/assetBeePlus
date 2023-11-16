@@ -1,2 +1,0 @@
-export { uploadQrCode } from './uploadQrCode';
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJ1cGxvYWRRckNvZGUiXSwic291cmNlcyI6WyIuLi8uLi9zcmMvZnVuY3Rpb25zL2luZGV4LmpzIl0sInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCB7dXBsb2FkUXJDb2RlfSBmcm9tICcuL3VwbG9hZFFyQ29kZSciXSwibWFwcGluZ3MiOiJBQUFBLFNBQVFBLFlBQVksUUFBTyxnQkFBZ0IifQ==

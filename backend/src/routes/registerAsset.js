@@ -11,8 +11,8 @@ export const registerAsset = async (req, res) => {
   const url = process.env.DOMAIN + "/device?id=" + internalId + "&creationDate=" + creationDate
   asset = { ...asset, internalId, url, creationDate }
   let qrCode = await uploadQrCode(asset, wrappedConsole)
-  // let dbUpdate = await dbPut(asset, wrappedConsole)
-  if (!qrCode ) {
+  let dbUpdate = await dbPut(asset, wrappedConsole)
+  if (!qrCode && !dbUpdate) {
     res.send(false)
   }
   else {

@@ -1,2 +1,0 @@
-export const s3Get = () => {};
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJzM0dldCJdLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9jbG91ZEZ1bmN0aW9ucy9zM0dldC5qcyJdLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQgY29uc3QgczNHZXQgPSAoKSA9PiB7XG4gICAgXG59Il0sIm1hcHBpbmdzIjoiQUFBQSxPQUFPLE1BQU1BLEtBQUssR0FBR0EsQ0FBQSxLQUFNLENBRTNCLENBQUMifQ==

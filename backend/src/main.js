@@ -12,5 +12,5 @@ app.get('/listAssets', listAssets)
 app.get('/downloadQrCode', downloadQrCode)
 
 app.listen(config.port, () => {
-  console.log(`Example app listening on port ${config.port}`)
+  console.log(`AssetBeePlus server listening on port ${config.port}`)
 })

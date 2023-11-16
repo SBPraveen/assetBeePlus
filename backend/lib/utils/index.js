@@ -1,2 +1,0 @@
-export { WrappedConsole } from './wrappedConsole.js';
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJXcmFwcGVkQ29uc29sZSJdLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy91dGlscy9pbmRleC5qcyJdLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQgeyBXcmFwcGVkQ29uc29sZSB9IGZyb20gJy4vd3JhcHBlZENvbnNvbGUuanMnIl0sIm1hcHBpbmdzIjoiQUFBQSxTQUFTQSxjQUFjLFFBQVEscUJBQXFCIn0=
